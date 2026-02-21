@@ -1,8 +1,9 @@
 'use client';
 
-import { useState } from "react";
+import { useTheme } from "next-themes";
+import { useState, useEffect, startTransition } from "react";
 import { NewsCard } from "./NewsCard";
-import { Newspaper, Menu, Search, MapPin, X, Sun, Moon, TrendingUp, Sparkles } from "lucide-react";
+import { Newspaper, TrendingUp, Sparkles, Search, Sun, Moon, X, Menu, MapPin } from "lucide-react";
 
 const newsCategories = ["전체", "정치", "경제", "사회", "스포츠", "연예", "과학"];
 const newsSources = ["전체", "네이버", "다음"];
@@ -108,7 +109,10 @@ export default function App() {
   const [selectedCategory, setSelectedCategory] = useState("전체");
   const [selectedSource, setSelectedSource] = useState("전체");
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [isDarkMode, setIsDarkMode] = useState(false);
+  const [mounted, setMounted] = useState(false);
+  const { resolvedTheme: theme, setTheme } = useTheme();
+
+  useEffect(() => { startTransition(() => setMounted(true)); }, []);
 
   const currentData = activeTab === "news" ? newsData : localNewsData;
   
@@ -119,12 +123,7 @@ export default function App() {
   });
 
   return (
-    <div className={`min-h-screen transition-colors duration-300 ${
-      isDarkMode 
-        ? "dark bg-gradient-to-br from-gray-900 via-gray-950 to-gray-900" 
-        : "bg-gradient-to-br from-gray-50 via-white to-gray-50"
-    }`}>
-      {/* Header */}
+    <div className="min-h-screen transition-colors duration-300 bg-gradient-to-br from-gray-50 via-white to-gray-50 dark:from-gray-900 dark:via-gray-950 dark:to-gray-900">
       <header className="backdrop-blur-xl bg-white/80 dark:bg-gray-900/80 border-b border-gray-200/50 dark:border-gray-700/50 sticky top-0 z-50 shadow-sm transition-colors duration-300">
         <div className="max-w-7xl mx-auto px-6 py-5">
           <div className="flex items-center justify-between">
@@ -139,14 +138,14 @@ export default function App() {
                 <Search className="w-5 h-5 text-gray-700 dark:text-gray-300" strokeWidth={2} />
               </button>
               <button 
-                onClick={() => setIsDarkMode(!isDarkMode)}
+                onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
                 className="p-2.5 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-xl transition-all duration-200 hover:shadow-md"
               >
-                {isDarkMode ? (
+                {mounted && (theme === "dark" ? (
                   <Sun className="w-5 h-5 text-gray-300" strokeWidth={2} />
                 ) : (
                   <Moon className="w-5 h-5 text-gray-700" strokeWidth={2} />
-                )}
+                ))}
               </button>
               <button 
                 className="md:hidden p-2.5 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-xl transition-all duration-200"
