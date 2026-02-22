@@ -1,11 +1,9 @@
 "use client";
 
-import {
-  Newspaper
-} from "lucide-react";
+import { Newspaper } from "lucide-react";
 import { useState } from "react";
 import Category from "./Category";
-import Header from "./Header";
+import Header from "../../common/Header";
 import { NewsCard } from "./NewsCard";
 import Summary from "./Summary";
 
@@ -88,64 +86,12 @@ const newsData = [
   },
 ];
 
-const localNewsData = [
-  {
-    id: 101,
-    title: "강남구 전통시장 활성화 프로그램 시작",
-    category: "사회",
-    source: "네이버",
-    description:
-      "지역 전통시장 살리기 프로젝트가 본격화되면서 상인들과 주민들의 기대가 높아지고 있습니다.",
-    imageUrl:
-      "https://images.unsplash.com/photo-1762592957827-99db60cfd0c7?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxsb2NhbCUyMGNvbW11bml0eSUyMG1hcmtldHxlbnwxfHx8fDE3NzE1NTkzNTR8MA&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral",
-    time: "1시간 전",
-  },
-  {
-    id: 102,
-    title: "서초구 신규 카페거리 조성, 주민 호평",
-    category: "사회",
-    source: "다음",
-    description:
-      "지역 상권 활성화를 위한 카페거리가 조성되면서 젊은층 유입이 늘어나고 있습니다.",
-    imageUrl:
-      "https://images.unsplash.com/photo-1765472980704-5caaa6ba4867?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxuZWlnaGJvcmhvb2QlMjBzdHJlZXQlMjBjYWZlfGVufDF8fHx8MTc3MTU1MTk1MXww&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral",
-    time: "3시간 전",
-  },
-  {
-    id: 103,
-    title: "마포구 지역 축제 대성황, 3만명 방문",
-    category: "사회",
-    source: "네이버",
-    description:
-      "주말에 열린 지역 축제에 많은 주민들이 참여하면서 지역 공동체 의식이 강화되고 있습니다.",
-    imageUrl:
-      "https://images.unsplash.com/photo-1761503390713-a1fd8b8bb6c5?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxsb2NhbCUyMGZlc3RpdmFsJTIwZXZlbnR8ZW58MXx8fHwxNzcxNTU5MzU0fDA&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral",
-    time: "4시간 전",
-  },
-  {
-    id: 104,
-    title: "송파구 도시공원 리모델링 완료",
-    category: "사회",
-    source: "다음",
-    description:
-      "주민들의 요청으로 진행된 공원 리모델링이 완료되어 더 쾌적한 휴식 공간이 마련되었습니다.",
-    imageUrl:
-      "https://images.unsplash.com/photo-1557265021-ad01a98a24e3?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxjaXR5JTIwcGFyayUyMHBlb3BsZXxlbnwxfHx8fDE3NzE1NTkzNTR8MA&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral",
-    time: "5시간 전",
-  },
-];
-
-export default function App() {
-  const [activeTab, setActiveTab] = useState<"news" | "local">("news");
+export default function NewsPage() {
   const [selectedCategory, setSelectedCategory] = useState("전체");
   const [selectedSource, setSelectedSource] = useState("전체");
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
-
-  const currentData: NewsItem[] =
-    activeTab === "news" ? newsData : localNewsData;
 
   const filteredNews: NewsItem[] =
-    currentData.filter((news) => {
+    newsData.filter((news) => {
       const categoryMatch =
         selectedCategory === "전체" || news.category === selectedCategory;
       const sourceMatch =
@@ -155,43 +101,24 @@ export default function App() {
 
   return (
     <div className="min-h-screen transition-colors duration-300 bg-gradient-to-br from-gray-50 via-white to-gray-50 dark:from-gray-900 dark:via-gray-950 dark:to-gray-900">
-      {/* 헤더*/}
-      <Header
-        isMenuOpen={isMenuOpen}
-        setIsMenuOpen={setIsMenuOpen}
-        activeTab={activeTab}
-        setActiveTab={setActiveTab}
-        setSelectedCategory={setSelectedCategory}
-        setSelectedSource={setSelectedSource}
-      />
-
-      {/* 카테고리 필터 */}
-      <Category
-        isMenuOpen={isMenuOpen}
-        setIsMenuOpen={setIsMenuOpen}
-        selectedCategory={selectedCategory}
-        setSelectedCategory={setSelectedCategory}
-        selectedSource={selectedSource}
-        setSelectedSource={setSelectedSource}
-      />
+      {/* 헤더 */}
+      <Header />
 
       <main className="max-w-7xl mx-auto px-6 py-12">
+        {/* 카테고리 필터 */}
+        <Category
+          selectedCategory={selectedCategory}
+          setSelectedCategory={setSelectedCategory}
+          selectedSource={selectedSource}
+          setSelectedSource={setSelectedSource}
+        />
+
         {/* 요약 섹션 */}
         <Summary filteredNews={filteredNews} />
 
         <div className="mb-10">
           <h2 className="text-3xl text-gray-900 dark:text-white tracking-tight mb-2">
-            {activeTab === "local"
-              ? selectedSource === "전체"
-                ? "우리동네 최신 소식"
-                : `${selectedSource} 우리동네 소식`
-              : selectedSource === "전체" && selectedCategory === "전체"
-                ? "최신 뉴스"
-                : selectedSource !== "전체" && selectedCategory === "전체"
-                  ? `${selectedSource} 최신 뉴스`
-                  : selectedSource === "전체" && selectedCategory !== "전체"
-                    ? `${selectedCategory} 뉴스`
-                    : `${selectedSource} ${selectedCategory} 뉴스`}
+            최신뉴스
           </h2>
           <p className="text-sm text-gray-500 dark:text-gray-400 tracking-wide">
             {filteredNews.length}개의 기사

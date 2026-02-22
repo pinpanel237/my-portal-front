@@ -1,16 +1,16 @@
 'use client';
 
-import { MapPin, Menu, Moon, Newspaper, Search, Sun, X } from "lucide-react";
+import { MapPin, Moon, Newspaper, Search, Sun } from "lucide-react";
 import { useTheme } from "next-themes";
+import { usePathname, useRouter } from "next/navigation";
 import { startTransition, useEffect, useState } from "react";
 
-export default function Header({ isMenuOpen, setIsMenuOpen, activeTab, setActiveTab, setSelectedCategory, setSelectedSource }:
-     { isMenuOpen: boolean, setIsMenuOpen: (open: boolean) => void, 
-        activeTab: "news" | "local", setActiveTab: (tab: "news" | "local") => void,
-        setSelectedCategory: (category: string) => void, setSelectedSource: (source: string) => void }) {
+export default function Header() {
+    const pathname = usePathname();
+    const router = useRouter();
     const [mounted, setMounted] = useState(false);
     const { resolvedTheme: theme, setTheme } = useTheme();
-
+    
     useEffect(() => {
       startTransition(() => setMounted(true));
     }, []);
@@ -39,57 +39,39 @@ export default function Header({ isMenuOpen, setIsMenuOpen, activeTab, setActive
                   <Moon className="w-5 h-5 text-gray-700" strokeWidth={2} />
                 ))}
               </button>
-              <button 
-                className="md:hidden p-2.5 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-xl transition-all duration-200"
-                onClick={() => setIsMenuOpen(!isMenuOpen)}
-              >
-                {isMenuOpen ? (
-                  <X className="w-5 h-5 text-gray-700 dark:text-gray-300" strokeWidth={2} />
-                ) : (
-                  <Menu className="w-5 h-5 text-gray-700 dark:text-gray-300" strokeWidth={2} />
-                )}
-              </button>
             </div>
           </div>
         </div>
         
-        {/* Tab Navigation */}
+        {/* 탭 내비게이션 */}
         <div className="border-t border-gray-200/50 dark:border-gray-700/50">
           <div className="max-w-7xl mx-auto px-6">
             <div className="flex gap-1">
               <button
-                onClick={() => {
-                  setActiveTab("news");
-                  setSelectedCategory("전체");
-                  setSelectedSource("전체");
-                }}
+                onClick={() => router.push("/news/main")}
                 className={`flex items-center gap-2 px-6 py-4 transition-all duration-200 relative ${
-                  activeTab === "news"
+                  pathname === "/news/main"
                     ? "text-blue-600 dark:text-blue-400"
                     : "text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-200"
                 }`}
               >
                 <Newspaper className="w-4 h-4" strokeWidth={2.5} />
                 <span className="tracking-tight">뉴스 보기</span>
-                {activeTab === "news" && (
+                {pathname === "/news/main" && (
                   <div className="absolute bottom-0 left-0 right-0 h-0.5 bg-gradient-to-r from-blue-500 to-blue-600 dark:from-blue-400 dark:to-blue-500 rounded-full"></div>
                 )}
               </button>
               <button
-                onClick={() => {
-                  setActiveTab("local");
-                  setSelectedCategory("전체");
-                  setSelectedSource("전체");
-                }}
+                onClick={() => router.push("/news/local")}
                 className={`flex items-center gap-2 px-6 py-4 transition-all duration-200 relative ${
-                  activeTab === "local"
+                  pathname === "/news/local"
                     ? "text-blue-600 dark:text-blue-400"
                     : "text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-200"
                 }`}
               >
                 <MapPin className="w-4 h-4" strokeWidth={2.5} />
                 <span className="tracking-tight">우리동네 기사보기</span>
-                {activeTab === "local" && (
+                {pathname === "/news/local" && (
                   <div className="absolute bottom-0 left-0 right-0 h-0.5 bg-gradient-to-r from-blue-500 to-blue-600 dark:from-blue-400 dark:to-blue-500 rounded-full"></div>
                 )}
               </button>

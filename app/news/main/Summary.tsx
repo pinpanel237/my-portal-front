@@ -10,7 +10,7 @@ export default function Summary({ filteredNews }: { filteredNews: NewsItem[] }) 
             <Sparkles className="w-5 h-5 text-white" strokeWidth={2.5} />
           </div>
           <h2 className="text-2xl text-gray-900 dark:text-white tracking-tight">
-            주요 뉴스 요약
+            주요 뉴스 AI 요약
           </h2>
         </div>
 
