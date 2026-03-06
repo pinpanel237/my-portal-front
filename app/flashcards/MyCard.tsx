@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { Plus, Trash2, BookOpen, Play } from 'lucide-react';
 import { Flashcard } from './page';
-import { StudyMode } from './StudyMode';
+import { StudyMode } from '../common/StudyMode';
 
 interface MyCardsProps {
   flashcards: Flashcard[];

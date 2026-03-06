@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from 'react';
 import { CheckCircle, Clock, Trophy } from 'lucide-react';
-import { Flashcard } from './page';
+import { Flashcard } from '../flashcards/page';
 import confetti from 'canvas-confetti';
 
 interface StudyModeProps {
@@ -18,11 +18,12 @@ export function StudyMode({ cards, onEnd }: StudyModeProps) {
 
   // Timer effect
   useEffect(() => {
+    if (isCompleted) return;
     const interval = setInterval(() => {
       setElapsedTime(Math.floor((Date.now() - studyStartTime) / 1000));
     }, 1000);
     return () => clearInterval(interval);
-  }, [studyStartTime]);
+  }, [studyStartTime, isCompleted]);
 
   // Confetti on completion
   useEffect(() => {

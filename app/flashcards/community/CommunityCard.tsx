@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { Share2, Play, Download, Users } from 'lucide-react';
-import { Flashcard } from './page';
-import { StudyMode } from './StudyMode';
+import { Flashcard } from '../page';
+import { StudyMode } from '../../common/StudyMode';
 
 interface CommunityCardsProps {
   sharedFlashcards: Flashcard[];
