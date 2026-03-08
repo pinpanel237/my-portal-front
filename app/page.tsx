@@ -24,10 +24,10 @@ const FEATURES = [
 
 export default function Home() {
   return (
-    <div className="min-h-screen transition-colors duration-300 bg-[#f5f5f7] dark:bg-[#000000]">
-      <main className="-mt-[64px] md:-mt-[72px]">
+    <div className="fixed inset-0 overflow-hidden transition-colors duration-300 bg-[#f5f5f7] dark:bg-[#000000]">
+      <main className="h-full overflow-y-auto snap-y snap-mandatory scroll-smooth">
         {/* Hero Section with Enhanced Background - Overlaps Header flow */}
-        <section className="relative px-6 pt-32 pb-16 md:pt-48 md:pb-48 overflow-hidden">
+        <section className="relative h-screen snap-start flex flex-col items-center justify-center px-6 overflow-hidden">
           {/* Background Image with Overlay */}
           <div className="absolute inset-0 z-0">
             <img 
@@ -39,7 +39,7 @@ export default function Home() {
             <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-[#f5f5f7] dark:to-[#000000]" />
           </div>
 
-          <div className="relative z-10 max-w-5xl mx-auto text-center">
+          <div className="relative z-10 max-w-5xl mx-auto text-center mt-[-64px] md:mt-[-72px]">
             <h1 className="text-[48px] md:text-[80px] font-bold tracking-tight leading-[1.1] mb-8 text-[#1d1d1f] dark:text-white">
               더 쉽고 빠르게, <br />
               <span className="bg-gradient-to-r from-[#007AFF] to-[#00C7BE] bg-clip-text text-transparent">
@@ -63,8 +63,8 @@ export default function Home() {
         </section>
 
         {/* Features Section */}
-        <section className="px-6 py-20 md:py-32 bg-white dark:bg-[#1c1c1e] transition-colors duration-300">
-          <div className="max-w-6xl mx-auto">
+        <section className="relative h-screen snap-start flex items-center px-6 bg-white dark:bg-[#1c1c1e] transition-colors duration-300">
+          <div className="max-w-6xl mx-auto w-full">
             <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
               {FEATURES.map((feature) => (
                 <div key={feature.id} className="group p-8 rounded-[32px] bg-[#f5f5f7] dark:bg-[#2c2c2e] hover:scale-[1.03] transition-all duration-300">
@@ -83,40 +83,42 @@ export default function Home() {
           </div>
         </section>
 
-        {/* CTA Section */}
-        <section className="px-6 py-24 md:py-40">
-          <div className="max-w-4xl mx-auto rounded-[48px] p-12 md:p-24 bg-gradient-to-br from-[#1d1d1f] to-[#000000] text-center text-white relative overflow-hidden">
-            <div className="relative z-10">
-              <h2 className="text-[36px] md:text-[56px] font-bold mb-8 leading-[1.1]">
-                준비되셨나요? <br />
-                함께 학습을 시작해 보세요.
-              </h2>
-              <Link
-                href="/flashcards"
-                className="inline-flex items-center justify-center px-12 py-5 rounded-[22px] text-[19px] font-semibold bg-white text-black hover:bg-[#f5f5f7] transition-all active:scale-[0.98]"
-              >
-                무료 가입 및 시작
-              </Link>
+        {/* CTA Section and Footer */}
+        <section className="relative h-screen snap-start flex flex-col px-6 py-12">
+          <div className="flex-1 flex items-center justify-center">
+            <div className="max-w-4xl mx-auto w-full rounded-[48px] p-12 md:p-20 bg-gradient-to-br from-[#1d1d1f] to-[#000000] text-center text-white relative overflow-hidden">
+              <div className="relative z-10">
+                <h2 className="text-[36px] md:text-[50px] font-bold mb-8 leading-[1.1]">
+                  준비되셨나요? <br />
+                  함께 학습을 시작해 보세요.
+                </h2>
+                <Link
+                  href="/flashcards"
+                  className="inline-flex items-center justify-center px-12 py-5 rounded-[22px] text-[19px] font-semibold bg-white text-black hover:bg-[#f5f5f7] transition-all active:scale-[0.98]"
+                >
+                  무료 가입 및 시작
+                </Link>
+              </div>
+              {/* Decorative element */}
+              <div className="absolute top-[-20%] right-[-10%] w-[300px] h-[300px] bg-blue-500/20 blur-[120px] rounded-full" />
+              <div className="absolute bottom-[-20%] left-[-10%] w-[300px] h-[300px] bg-purple-500/10 blur-[120px] rounded-full" />
             </div>
-            {/* Decorative element */}
-            <div className="absolute top-[-20%] right-[-10%] w-[300px] h-[300px] bg-blue-500/20 blur-[120px] rounded-full" />
-            <div className="absolute bottom-[-20%] left-[-10%] w-[300px] h-[300px] bg-purple-500/10 blur-[120px] rounded-full" />
           </div>
+
+          {/* Footer (Simple) */}
+          <footer className="mt-auto py-8 border-t border-[#d2d2d7] dark:border-[#38383a] transition-colors duration-300">
+            <div className="max-w-6xl mx-auto flex flex-col md:flex-row justify-between items-center gap-6">
+              <div className="text-[15px] text-[#86868b] dark:text-[#98989d]">
+                © 2026 Flashcard App. All rights reserved.
+              </div>
+              <div className="flex gap-8 text-[15px] text-[#86868b] dark:text-[#98989d]">
+                <a href="#" className="hover:text-[#007AFF] transition-colors">개인정보 처리방침</a>
+                <a href="#" className="hover:text-[#007AFF] transition-colors">이용약관</a>
+              </div>
+            </div>
+          </footer>
         </section>
       </main>
-
-      {/* Footer (Simple) */}
-      <footer className="px-6 py-12 border-t border-[#d2d2d7] dark:border-[#38383a] transition-colors duration-300">
-        <div className="max-w-6xl mx-auto flex flex-col md:flex-row justify-between items-center gap-6">
-          <div className="text-[15px] text-[#86868b] dark:text-[#98989d]">
-            © 2026 Flashcard App. All rights reserved.
-          </div>
-          <div className="flex gap-8 text-[15px] text-[#86868b] dark:text-[#98989d]">
-            <a href="#" className="hover:text-[#007AFF] transition-colors">개인정보 처리방침</a>
-            <a href="#" className="hover:text-[#007AFF] transition-colors">이용약관</a>
-          </div>
-        </div>
-      </footer>
     </div>
   );
 }

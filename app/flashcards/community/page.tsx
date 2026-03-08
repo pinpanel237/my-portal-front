@@ -83,8 +83,6 @@ export default function App() {
 
   return (
     <div className="min-h-screen transition-colors duration-300 bg-[#f5f5f7] dark:bg-[#000000]">
-      <Header />
-
       <div className="max-w-6xl mx-auto px-4 md:px-6 py-8 md:py-12">
           <CommunityCards
             sharedFlashcards={sharedFlashcards}
