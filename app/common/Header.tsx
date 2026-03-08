@@ -15,13 +15,21 @@ export function Header() {
     startTransition(() => setMounted(true));
   }, []);
 
+  const isMainPage = pathname === "/";
+
   return (
-      <div className="sticky top-0 z-50 border-b transition-colors duration-300 bg-white border-[#d2d2d7] dark:bg-[#1c1c1e] dark:border-[#38383a]">
+      <header className={`relative z-50 transition-all duration-300 ${
+        isMainPage 
+          ? "bg-transparent border-transparent backdrop-blur-none" 
+          : "bg-white/50 border-b border-[#d2d2d7] backdrop-blur-lg dark:bg-black/50 dark:border-[#38383a]"
+      }`}>
         <div className="flex items-center justify-between py-3 px-4 md:px-6">
           {/* Title */}
-          <h1 className="text-[20px] md:text-[24px] font-bold transition-colors duration-300 text-[#1d1d1f] dark:text-white">
-            암기 카드
-          </h1>
+          <Link href="/" className="hover:opacity-80 transition-opacity">
+            <h1 className="text-[20px] md:text-[24px] font-bold transition-colors duration-300 text-[#1d1d1f] dark:text-white">
+              암기 카드
+            </h1>
+          </Link>
 
           {/* Center Tabs */}
           <div className="flex gap-2">
@@ -30,7 +38,9 @@ export function Header() {
               className={`py-2 px-4 md:px-6 rounded-[12px] text-[15px] md:text-[17px] font-medium transition-all flex items-center justify-center gap-2 ${
                 pathname === "/flashcards"
                   ? "bg-[#007AFF] text-white"
-                  : "text-[#86868b] hover:text-[#1d1d1f] hover:bg-[#f5f5f7] dark:text-[#98989d] dark:hover:text-white dark:hover:bg-[#2c2c2e]"
+                  : isMainPage
+                    ? "text-[#1d1d1f] hover:bg-black/5 dark:text-white dark:hover:bg-white/10"
+                    : "text-[#1d1d1f] hover:bg-white/20 dark:text-white dark:hover:bg-black/20"
               }`}
             >
               <User className="w-4 h-4" strokeWidth={2.5} />
@@ -41,7 +51,9 @@ export function Header() {
               className={`py-2 px-4 md:px-6 rounded-[12px] text-[15px] md:text-[17px] font-medium transition-all flex items-center justify-center gap-2 ${
                 pathname === "/flashcards/community"
                   ? "bg-[#007AFF] text-white"
-                  : "text-[#86868b] hover:text-[#1d1d1f] hover:bg-[#f5f5f7] dark:text-[#98989d] dark:hover:text-white dark:hover:bg-[#2c2c2e]"
+                  : isMainPage
+                    ? "text-[#1d1d1f] hover:bg-black/5 dark:text-white dark:hover:bg-white/10"
+                    : "text-[#1d1d1f] hover:bg-white/20 dark:text-white dark:hover:bg-black/20"
               }`}
             >
               <Users className="w-4 h-4" strokeWidth={2.5} />
@@ -52,7 +64,11 @@ export function Header() {
           {/* Theme Toggle Button */}
           <button
             onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
-            className="w-9 h-9 md:w-10 md:h-10 rounded-[10px] transition-all flex items-center justify-center flex-shrink-0 bg-[#f5f5f7] hover:bg-[#e8e8ed] text-[#007AFF] dark:bg-[#3a3a3c] dark:hover:bg-[#48484a] dark:text-[#ffd60a]"
+            className={`w-9 h-9 md:w-10 md:h-10 rounded-[10px] transition-all flex items-center justify-center flex-shrink-0 text-[#007AFF] dark:text-[#ffd60a] ${
+              isMainPage
+                ? "bg-black/5 hover:bg-black/10 dark:bg-white/10 dark:hover:bg-white/20"
+                : "bg-white/20 hover:bg-white/30 dark:bg-black/20 dark:hover:bg-black/30"
+            }`}
             aria-label="테마 전환"
           >
             {mounted && (theme === "dark" ? (
@@ -66,6 +82,6 @@ export function Header() {
             ))}
           </button>
         </div>
-      </div>
+      </header>
   );
 }
