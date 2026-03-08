@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { Edit3, PlayCircle, Users, ArrowRight } from "lucide-react";
 import { useTypingEffect } from "@/hooks/useTypingEffect";
+import { InteractiveCard } from "./common/InteractiveCard";
 
 const FEATURES = [
   {
@@ -31,7 +32,7 @@ export default function Home() {
   return (
     <div className="fixed inset-0 overflow-hidden transition-colors duration-300 bg-[#f5f5f7] dark:bg-[#000000]">
       <main className="h-full overflow-y-auto snap-y snap-mandatory scroll-smooth">
-        {/* Hero Section with Enhanced Background - Overlaps Header flow */}
+        {/* Hero Section */}
         <section className="relative h-screen snap-start flex flex-col items-center justify-center px-6 overflow-hidden">
           {/* Background Image with Overlay */}
           <div className="absolute inset-0 z-0">
@@ -66,6 +67,19 @@ export default function Home() {
               </Link>
             </div>
           </div>
+        </section>
+
+        {/* Interactive Experience Section */}
+        <section className="relative h-screen snap-start flex flex-col items-center justify-center px-6 bg-[#f5f5f7] dark:bg-[#0a0a0a] transition-colors duration-300">
+          <div className="max-w-3xl mx-auto text-center mb-12">
+            <h2 className="text-[32px] md:text-[48px] font-bold mb-4 text-[#1d1d1f] dark:text-white">
+              직접 체험해 보세요
+            </h2>
+            <p className="text-[17px] md:text-[19px] text-[#86868b] dark:text-[#98989d]">
+              카드를 클릭하여 정답을 확인하는 직관적인 학습 방식을 미리 경험할 수 있습니다.
+            </p>
+          </div>
+          <InteractiveCard />
         </section>
 
         {/* Features Section */}
