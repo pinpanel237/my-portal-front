@@ -1,5 +1,8 @@
+"use client";
+
 import Link from "next/link";
 import { Edit3, PlayCircle, Users, ArrowRight } from "lucide-react";
+import { useTypingEffect } from "@/hooks/useTypingEffect";
 
 const FEATURES = [
   {
@@ -23,6 +26,8 @@ const FEATURES = [
 ];
 
 export default function Home() {
+  const { displayText, isCompleted } = useTypingEffect("당신의 지식을 마스터하세요", 100, 500);
+
   return (
     <div className="fixed inset-0 overflow-hidden transition-colors duration-300 bg-[#f5f5f7] dark:bg-[#000000]">
       <main className="h-full overflow-y-auto snap-y snap-mandatory scroll-smooth">
@@ -42,8 +47,9 @@ export default function Home() {
           <div className="relative z-10 max-w-5xl mx-auto text-center mt-[-64px] md:mt-[-72px]">
             <h1 className="text-[48px] md:text-[80px] font-bold tracking-tight leading-[1.1] mb-8 text-[#1d1d1f] dark:text-white">
               더 쉽고 빠르게, <br />
-              <span className="bg-gradient-to-r from-[#007AFF] to-[#00C7BE] bg-clip-text text-transparent">
-                당신의 지식을 마스터하세요
+              <span className="bg-gradient-to-r from-[#007AFF] to-[#00C7BE] bg-clip-text text-transparent inline-block min-h-[1.2em]">
+                {displayText}
+                <span className={`inline-block w-[2px] h-[0.8em] bg-[#007AFF] ml-1 align-middle ${!isCompleted ? 'animate-pulse' : 'opacity-0'}`}></span>
               </span>
             </h1>
             <p className="max-w-2xl mx-auto text-[19px] md:text-[24px] mb-12 text-[#1d1d1f] dark:text-[#f5f5f7] font-medium">
