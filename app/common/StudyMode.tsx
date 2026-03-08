@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from 'react';
-import { CheckCircle, Clock, Trophy } from 'lucide-react';
-import { Flashcard } from '../flashcards/page';
+import { CheckCircle, Clock, Trophy, ChevronLeft } from 'lucide-react';
+import { Flashcard } from '../types/flashcard';
 import confetti from 'canvas-confetti';
 
 interface StudyModeProps {
@@ -46,6 +46,13 @@ export function StudyMode({ cards, onEnd }: StudyModeProps) {
       setIsFlipped(false);
     } else {
       setIsCompleted(true);
+    }
+  };
+
+  const prevCard = () => {
+    if (currentCardIndex > 0) {
+      setCurrentCardIndex(currentCardIndex - 1);
+      setIsFlipped(false);
     }
   };
 
@@ -146,19 +153,34 @@ export function StudyMode({ cards, onEnd }: StudyModeProps) {
         >
           학습 종료
         </button>
-        
-        <button
-          onClick={nextCard}
-          disabled={!isFlipped}
-          className={`flex-1 py-4 px-6 rounded-[18px] text-[17px] font-medium transition-all flex items-center justify-center gap-2 ${
-            isFlipped
-              ? 'bg-gradient-to-br from-[#007AFF] to-[#0051D5] text-white hover:shadow-lg hover:shadow-blue-500/25'
-              : 'bg-[#e5e5ea] text-[#86868b] cursor-not-allowed dark:bg-[#2c2c2e] dark:text-[#48484a]'
-          }`}
-        >
-          {currentCardIndex < cards.length - 1 ? '다음 카드' : '학습 완료'}
-          <CheckCircle className="w-5 h-5" strokeWidth={2.5} />
-        </button>
+
+        <div className="flex-[2] flex gap-4">
+          <button
+            onClick={prevCard}
+            disabled={currentCardIndex === 0}
+            className={`flex-1 py-4 px-6 rounded-[18px] text-[17px] font-medium transition-all flex items-center justify-center gap-2 ${
+              currentCardIndex > 0
+                ? 'bg-[#f5f5f7] text-[#1d1d1f] hover:bg-[#e8e8ed] dark:bg-[#2c2c2e] dark:text-white dark:hover:bg-[#3a3a3c]'
+                : 'bg-[#e5e5ea] text-[#86868b] cursor-not-allowed dark:bg-[#2c2c2e] dark:text-[#48484a] opacity-50'
+            }`}
+          >
+            <ChevronLeft className="w-5 h-5" strokeWidth={2.5} />
+            이전
+          </button>
+          
+          <button
+            onClick={nextCard}
+            disabled={!isFlipped}
+            className={`flex-[1.5] py-4 px-6 rounded-[18px] text-[17px] font-medium transition-all flex items-center justify-center gap-2 ${
+              isFlipped
+                ? 'bg-gradient-to-br from-[#007AFF] to-[#0051D5] text-white hover:shadow-lg hover:shadow-blue-500/25'
+                : 'bg-[#e5e5ea] text-[#86868b] cursor-not-allowed dark:bg-[#2c2c2e] dark:text-[#48484a]'
+            }`}
+          >
+            {currentCardIndex < cards.length - 1 ? '다음 카드' : '학습 완료'}
+            <CheckCircle className="w-5 h-5" strokeWidth={2.5} />
+          </button>
+        </div>
       </div>
     </div>
   );
